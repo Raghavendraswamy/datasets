@@ -1,0 +1,94 @@
+pip install pandas numpy scikit-learn streamlit joblib
+
+  folder view:
+Diabetes_KNN_App/
+│
+├── app.py
+├── diabetes.csv
+├── train_model.py
+└── knn_model.pkl
+
+  train_model.py
+
+  import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.pipeline import Pipeline
+import joblib
+
+# Load dataset
+df = pd.read_csv("diabetes.csv")
+
+X = df.drop("Outcome", axis=1)
+y = df["Outcome"]
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.2,
+    random_state=42
+)
+
+# Pipeline
+model = Pipeline([
+    ("scaler", StandardScaler()),
+    ("knn", KNeighborsClassifier(n_neighbors=5))
+])
+
+# Train
+model.fit(X_train, y_train)
+
+# Save model
+joblib.dump(model, "knn_model.pkl")
+
+print("Model Saved Successfully!")
+
+
+
+
+  app.py
+  -----
+  import streamlit as st
+import joblib
+import numpy as np
+
+# Load model
+model = joblib.load("knn_model.pkl")
+
+st.title("Diabetes Prediction using KNN")
+
+st.write("Enter Patient Details")
+
+preg = st.number_input("Pregnancies", 0, 20, 1)
+glucose = st.number_input("Glucose", 0, 300, 120)
+bp = st.number_input("Blood Pressure", 0, 200, 80)
+skin = st.number_input("Skin Thickness", 0, 100, 20)
+insulin = st.number_input("Insulin", 0, 900, 80)
+bmi = st.number_input("BMI", 0.0, 70.0, 25.0)
+dpf = st.number_input("Diabetes Pedigree Function", 0.0, 3.0, 0.5)
+age = st.number_input("Age", 1, 120, 30)
+
+if st.button("Predict"):
+
+    data = np.array([
+        [preg, glucose, bp, skin,
+         insulin, bmi, dpf, age]
+    ])
+
+    prediction = model.predict(data)
+
+    if prediction[0] == 1:
+        st.error("Patient is likely Diabetic")
+    else:
+        st.success("Patient is likely Non-Diabetic")
+
+
+
+  =====
+
+  streamlit run app.py
+
+  =====
+
+  
