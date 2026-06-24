@@ -1,0 +1,8 @@
+| OrderID | CustomerName | Email                                   | Sales | Profit | OrderDate  | City      |
+| ------- | ------------ | --------------------------------------- | ----- | ------ | ---------- | --------- |
+| 1001    | John         | [john@gmail.com](mailto:john@gmail.com) | 15000 | 3000   | 01-01-2024 | Hyderabad |
+| 1002    | JOHN         | [john@gmail.com](mailto:john@gmail.com) | 15000 | 3000   | 01-01-2024 | Hyderabad |
+| 1003    | Mary         | [mary@gmail.com](mailto:mary@gmail.com) | NULL  | 2500   | 05-01-2024 | Bangalore |
+| 1004    | Peter        | peter@gmail                             | -5000 | -1000  | invalid    | Chennai   |
+| 1005    | Ramesh       | NULL                                    | 25000 | NULL   | 10-01-2024 | HYDERABAD |
+| 1006    | Mary         | [mary@gmail.com](mailto:mary@gmail.com) | 18000 | 3500   | 05-01-2024 | Bangalore |
